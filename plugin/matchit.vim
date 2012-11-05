@@ -122,8 +122,6 @@ function! s:Match_wrapper(word, forward, mode) range
 " Thanks to Preben "Peppe" Guldberg and Bram Moolenaar for this suggestion!
   if (match_words != s:last_words) || (&mps != s:last_mps) ||
     \ exists("b:match_debug")
-    let s:last_words = match_words
-    let s:last_mps = &mps
     " The next several lines were here before
     " BF started messing with this script.
     " quote the special chars in 'matchpairs', replace [,:] with \| and then
@@ -147,6 +145,8 @@ function! s:Match_wrapper(word, forward, mode) range
     if exists("b:match_debug")
       let b:match_pat = s:pat
     endif
+    let s:last_words = match_words
+    let s:last_mps = &mps
   endif
 
   " Second step:  set the following local variables:
@@ -658,8 +658,6 @@ fun! s:MultiMatch(spflag, mode)
   endif
   if (match_words != s:last_words) || (&mps != s:last_mps) ||
     \ exists("b:match_debug")
-    let s:last_words = match_words
-    let s:last_mps = &mps
     if match_words !~ s:notslash . '\\\d'
       let s:do_BR = 0
       let s:pat = match_words
@@ -672,6 +670,8 @@ fun! s:MultiMatch(spflag, mode)
     if exists("b:match_debug")
       let b:match_pat = s:pat
     endif
+    let s:last_words = match_words
+    let s:last_mps = &mps
   endif
 
   " Second step:  figure out the patterns for searchpair()
